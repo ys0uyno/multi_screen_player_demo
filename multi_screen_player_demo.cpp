@@ -27,7 +27,7 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    gridLayout = new QGridLayout;
+    gridLayout = new grid_layout;
     setLayout(gridLayout);
 }
 
@@ -60,7 +60,7 @@ void multi_screen_player_demo::openFiles()
             media_player *video =
                     new media_player(this, QMediaPlayer::VideoSurface);
             video->setUrlAndPlay(fileDialog.selectedUrls().at(i));
-            gridLayout->addWidget(video->getVideoWidget());
+            gridLayout->add(video->getVideoWidget());
             mediaPlayerVec.push_back(video);
         }
     }

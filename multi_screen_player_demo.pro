@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         multi_screen_player_demo.cpp \
         video_widget.cpp \
-        media_player.cpp
+        media_player.cpp \
+        grid_layout.cpp
 
 HEADERS += \
         multi_screen_player_demo.h \
         video_widget.h \
-        media_player.h
+        media_player.h \
+        grid_layout.h
 
 FORMS += \
         multi_screen_player_demo.ui
