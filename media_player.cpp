@@ -16,3 +16,9 @@ video_widget *media_player::getVideoWidget() const
 {
     return videoWidget;
 }
+
+void media_player::setUrlAndPlay(const QUrl &url)
+{
+    setMedia(url);
+    play();
+}

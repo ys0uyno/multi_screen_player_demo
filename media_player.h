@@ -12,6 +12,7 @@ public:
 
 public:
     video_widget *getVideoWidget() const;
+    void setUrlAndPlay(const QUrl &url);
 
 private:
     video_widget *videoWidget;

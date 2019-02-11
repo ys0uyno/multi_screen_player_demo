@@ -17,17 +17,14 @@ public:
     explicit multi_screen_player_demo(QWidget *parent = nullptr);
     ~multi_screen_player_demo();
 
-public:
-    void setUrl(const QUrl &url);
-
 public slots:
     void openFiles();
 
 private:
     Ui::multi_screen_player_demo *ui;
-    media_player *mediaPlayer;
     QGridLayout *gridLayout;
     video_widget *videoWidget;
+    QVector<media_player *> mediaPlayerVec;
 };
 
 #endif // MULTI_SCREEN_PLAYER_DEMO_H

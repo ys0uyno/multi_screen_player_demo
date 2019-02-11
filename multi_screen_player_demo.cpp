@@ -27,10 +27,7 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    mediaPlayer = new media_player(this, QMediaPlayer::VideoSurface);
     gridLayout = new QGridLayout;
-
-    gridLayout->addWidget(mediaPlayer->getVideoWidget());
     setLayout(gridLayout);
 }
 
@@ -39,28 +36,32 @@ multi_screen_player_demo::~multi_screen_player_demo()
     delete ui;
 }
 
-void multi_screen_player_demo::setUrl(const QUrl &url)
-{
-    setWindowFilePath(url.isLocalFile() ? url.toLocalFile() : QString());
-    mediaPlayer->setMedia(url);
-    mediaPlayer->play();
-}
-
 void multi_screen_player_demo::openFiles()
 {
     QFileDialog fileDialog(this);
     fileDialog.setAcceptMode(QFileDialog::AcceptOpen);
     fileDialog.setWindowTitle(tr("Open Files"));
     fileDialog.setFileMode(QFileDialog::ExistingFiles);
-    QStringList supportedMimeTypes = mediaPlayer->supportedMimeTypes();
+
+    QStringList supportedMimeTypes = QMediaPlayer::supportedMimeTypes();
     if (!supportedMimeTypes.isEmpty())
         fileDialog.setMimeTypeFilters(supportedMimeTypes);
+
     fileDialog.setDirectory(
-                QStandardPaths::standardLocations(QStandardPaths::MoviesLocation).value(
+                QStandardPaths::standardLocations(
+                    QStandardPaths::MoviesLocation).value(
                     0,
                     QDir::homePath()
-                    ));
+                    )
+                );
     if (fileDialog.exec() == QDialog::Accepted) {
-        setUrl(fileDialog.selectedUrls().constFirst());
+        QList<QUrl> files = fileDialog.selectedUrls();
+        for (int i = 0; i < files.length(); ++i) {
+            media_player *video =
+                    new media_player(this, QMediaPlayer::VideoSurface);
+            video->setUrlAndPlay(fileDialog.selectedUrls().at(i));
+            gridLayout->addWidget(video->getVideoWidget());
+            mediaPlayerVec.push_back(video);
+        }
     }
 }
