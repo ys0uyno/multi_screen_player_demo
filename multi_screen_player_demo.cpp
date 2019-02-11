@@ -27,12 +27,10 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
 
-    mediaPlayer = new QMediaPlayer(this, QMediaPlayer::VideoSurface);
-    videoWidget = new QVideoWidget;
+    mediaPlayer = new media_player(this, QMediaPlayer::VideoSurface);
     gridLayout = new QGridLayout;
 
-    mediaPlayer->setVideoOutput(videoWidget);
-    gridLayout->addWidget(videoWidget);
+    gridLayout->addWidget(mediaPlayer->getVideoWidget());
     setLayout(gridLayout);
 }
 

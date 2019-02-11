@@ -1,10 +1,9 @@
 #ifndef MULTI_SCREEN_PLAYER_DEMO_H
 #define MULTI_SCREEN_PLAYER_DEMO_H
 
+#include "media_player.h"
 #include <QWidget>
-#include <QVideoWidget>
 #include <QtWidgets>
-#include <QMediaPlayer>
 
 namespace Ui {
 class multi_screen_player_demo;
@@ -26,9 +25,9 @@ public slots:
 
 private:
     Ui::multi_screen_player_demo *ui;
-    QMediaPlayer *mediaPlayer;
+    media_player *mediaPlayer;
     QGridLayout *gridLayout;
-    QVideoWidget *videoWidget;
+    video_widget *videoWidget;
 };
 
 #endif // MULTI_SCREEN_PLAYER_DEMO_H

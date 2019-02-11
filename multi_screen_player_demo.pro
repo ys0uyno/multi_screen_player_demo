@@ -26,10 +26,14 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        multi_screen_player_demo.cpp
+        multi_screen_player_demo.cpp \
+        video_widget.cpp \
+        media_player.cpp
 
 HEADERS += \
-        multi_screen_player_demo.h
+        multi_screen_player_demo.h \
+        video_widget.h \
+        media_player.h
 
 FORMS += \
         multi_screen_player_demo.ui
