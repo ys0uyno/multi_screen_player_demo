@@ -7,6 +7,9 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    gridLayout = new grid_layout;
+    setLayout(gridLayout);
+
     QAction *openAction = new QAction("&Open", this);
     openAction->setShortcut(tr("Ctrl+O"));
     connect(openAction,
@@ -15,6 +18,15 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
             &multi_screen_player_demo::openFiles
             );
     addAction(openAction);
+
+    QAction *relayoutAction = new QAction("&Relayout", this);
+    relayoutAction->setShortcut(tr("Ctrl+R"));
+    connect(relayoutAction,
+            &QAction::triggered,
+            gridLayout,
+            &grid_layout::relayout
+            );
+    addAction(relayoutAction);
 
     QAction *quitAction = new QAction("E&xit", this);
     quitAction->setShortcut(tr("Ctrl+Q"));
@@ -26,9 +38,6 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
     addAction(quitAction);
 
     setContextMenuPolicy(Qt::ActionsContextMenu);
-
-    gridLayout = new grid_layout;
-    setLayout(gridLayout);
 }
 
 multi_screen_player_demo::~multi_screen_player_demo()

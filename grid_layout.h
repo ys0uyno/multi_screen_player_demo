@@ -2,6 +2,7 @@
 #define GRID_LAYOUT_H
 
 #include <QGridLayout>
+#include <QVector>
 
 class grid_layout : public QGridLayout
 {
@@ -10,6 +11,12 @@ public:
 
 public:
     void add(QWidget *widget);
+
+public slots:
+    void relayout();
+
+private:
+    QVector<QWidget *> widgetVec;
 };
 
 #endif // GRID_LAYOUT_H
