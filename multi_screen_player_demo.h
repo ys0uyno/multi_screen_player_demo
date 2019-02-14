@@ -21,6 +21,10 @@ public:
 public slots:
     void openFiles();
 
+protected:
+    void dragEnterEvent(QDragEnterEvent *event);
+    void dropEvent(QDropEvent *event);
+
 private:
     Ui::multi_screen_player_demo *ui;
     grid_layout *gridLayout;

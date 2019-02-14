@@ -7,6 +7,8 @@ multi_screen_player_demo::multi_screen_player_demo(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    setAcceptDrops(true);
+
     gridLayout = new grid_layout;
     setLayout(gridLayout);
 
@@ -72,5 +74,30 @@ void multi_screen_player_demo::openFiles()
             gridLayout->add(video->getVideoWidget());
             mediaPlayerVec.push_back(video);
         }
+    }
+}
+
+void multi_screen_player_demo::dragEnterEvent(QDragEnterEvent *event)
+{
+    if (event->mimeData()->hasFormat("text/uri-list")) {
+        event->acceptProposedAction();
+    }
+}
+
+void multi_screen_player_demo::dropEvent(QDropEvent *event)
+{
+    QList<QUrl> files = event->mimeData()->urls();
+    if (files.isEmpty()) {
+        return;
+    }
+
+    foreach (QUrl file, files) {
+        qInfo("%s", file.toLocalFile().toStdString().c_str());
+
+        media_player *video =
+                new media_player(this, QMediaPlayer::VideoSurface);
+        video->setUrlAndPlay(file);
+        gridLayout->add(video->getVideoWidget());
+        mediaPlayerVec.push_back(video);
     }
 }
