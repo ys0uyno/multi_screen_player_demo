@@ -71,7 +71,7 @@ void multi_screen_player_demo::openFiles()
             media_player *video =
                     new media_player(this, QMediaPlayer::VideoSurface);
             video->setUrlAndPlay(fileDialog.selectedUrls().at(i));
-            gridLayout->add(video->getVideoWidget());
+            gridLayout->add(video->getVideoWidget(), video->getSlider());
             mediaPlayerVec.push_back(video);
         }
     }
@@ -97,7 +97,7 @@ void multi_screen_player_demo::dropEvent(QDropEvent *event)
         media_player *video =
                 new media_player(this, QMediaPlayer::VideoSurface);
         video->setUrlAndPlay(file);
-        gridLayout->add(video->getVideoWidget());
+        gridLayout->add(video->getVideoWidget(), video->getSlider());
         mediaPlayerVec.push_back(video);
     }
 }

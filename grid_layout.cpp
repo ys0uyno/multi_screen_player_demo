@@ -12,6 +12,25 @@ void grid_layout::add(QWidget *widget)
     relayout();
 }
 
+void grid_layout::add(QWidget *widget, QWidget *slider)
+{
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    vlayout->addWidget(widget);
+    vlayout->addWidget(slider);
+    verticalLayoutVec.push_back(vlayout);
+
+    int grid_count = verticalLayoutVec.size();
+    int max_row_count =
+            static_cast<int>(ceil(sqrt(static_cast<double>(grid_count))));
+
+    for (int i = 0; i < max_row_count; ++i) {
+        addLayout(verticalLayoutVec.at(i),
+                  i / max_row_count,
+                  i % max_row_count
+                  );
+    }
+}
+
 void grid_layout::relayout()
 {
     int widgets_count = count();

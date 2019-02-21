@@ -3,6 +3,7 @@
 
 #include <QGridLayout>
 #include <QVector>
+#include <QBoxLayout>
 
 class grid_layout : public QGridLayout
 {
@@ -11,12 +12,14 @@ public:
 
 public:
     void add(QWidget *widget);
+    void add(QWidget *wdiget, QWidget *slider);
 
 public slots:
     void relayout();
 
 private:
     QVector<QWidget *> widgetVec;
+    QVector<QVBoxLayout *> verticalLayoutVec;
 };
 
 #endif // GRID_LAYOUT_H
