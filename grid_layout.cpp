@@ -19,15 +19,21 @@ void grid_layout::add(QWidget *widget, QWidget *slider)
     vlayout->addWidget(slider);
     verticalLayoutVec.push_back(vlayout);
 
-    int grid_count = verticalLayoutVec.size();
-    int max_row_count =
-            static_cast<int>(ceil(sqrt(static_cast<double>(grid_count))));
-
-    for (int i = 0; i < max_row_count; ++i) {
-        addLayout(verticalLayoutVec.at(i),
-                  i / max_row_count,
-                  i % max_row_count
-                  );
+    if (verticalLayoutVec.size() == 1) {
+        qInfo("grid 1");
+        addLayout(verticalLayoutVec.at(0), 0, 0);
+    }
+    else if (verticalLayoutVec.size() == 2) {
+        qInfo("grid 2");
+        addLayout(verticalLayoutVec.at(1), 0, 1);
+    }
+    else if (verticalLayoutVec.size() == 3) {
+        qInfo("grid 3");
+        addLayout(verticalLayoutVec.at(2), 1, 0);
+    }
+    else if (verticalLayoutVec.size() == 4) {
+        qInfo("grid 4");
+        addLayout(verticalLayoutVec.at(3), 1, 1);
     }
 }
 
