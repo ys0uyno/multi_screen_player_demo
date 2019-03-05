@@ -2,11 +2,13 @@
 #define MEDIA_PLAYER_H
 
 #include "video_widget.h"
+#include "clickableslider.h"
 #include <QMediaPlayer>
-#include <QSlider>
 
 class media_player : public QMediaPlayer
 {
+    Q_OBJECT
+
 public:
     media_player(QObject *parent = nullptr, Flags flags = Flags());
     ~media_player();
