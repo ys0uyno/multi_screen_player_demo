@@ -16,7 +16,7 @@ protected:
     void mousePressEvent(QMouseEvent *ev);
 
 signals:
-    void sliderClicked(int);
+    void sliderClicked(qint64);
 };
 
 #endif // CLICKABLESLIDER_H

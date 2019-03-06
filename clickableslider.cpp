@@ -16,8 +16,8 @@ void ClickableSlider::mousePressEvent(QMouseEvent *ev)
     qInfo("pos().x(): %d, width(): %d, maximum(): %d, minimum(): %d",
           ev->pos().x(), width(), maximum(), minimum());
     float pos = static_cast<float>(ev->pos().x()) / width();
-    int seconds = static_cast<int>(pos * maximum());
-    qInfo("seconds: %d", seconds);
-    setValue(seconds);
-    emit sliderClicked(seconds);
+    int milliseconds = qRound(pos * maximum());
+    qInfo("milliseconds: %d", milliseconds);
+    setValue(milliseconds);
+    emit sliderClicked(milliseconds);
 }

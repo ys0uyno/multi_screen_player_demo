@@ -22,7 +22,7 @@ public:
     void setUrlAndPlay(const QUrl &url);
 
 public slots:
-    void seek(int seconds);
+    void seek(qint64 milliseconds);
     void durationChanged(qint64 duration);
     void positionChanged(qint64 progress);
     void updateElapsedTime(qint64 elapsed);
@@ -31,7 +31,7 @@ private:
     video_widget *videoWidget;
     QSlider *slider;
     QLabel *label;
-    qint64 totalSeconds;
+    qint64 totalMilliseconds;
 };
 
 #endif // MEDIA_PLAYER_H

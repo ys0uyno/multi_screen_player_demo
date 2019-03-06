@@ -7,10 +7,10 @@ media_player::media_player(QObject *parent, Flags flags)
     setVideoOutput(videoWidget);
 
     slider = new ClickableSlider(Qt::Horizontal);
-    slider->setRange(0, static_cast<int>(duration() / 1000));
+    slider->setRange(0, static_cast<int>(duration()));
 
     connect(slider, &ClickableSlider::sliderMoved, this, &media_player::seek);
-    connect(slider, SIGNAL(sliderClicked(int)), this, SLOT(seek(int)));
+    connect(slider, SIGNAL(sliderClicked(qint64)), this, SLOT(seek(qint64)));
     connect(this, &QMediaPlayer::durationChanged, this, &media_player::durationChanged);
     connect(this, &QMediaPlayer::positionChanged, this, &media_player::positionChanged);
     connect(this, &QMediaPlayer::positionChanged, this, &media_player::updateElapsedTime);
@@ -44,22 +44,21 @@ void media_player::setUrlAndPlay(const QUrl &url)
     play();
 }
 
-void media_player::seek(int seconds)
+void media_player::seek(qint64 milliseconds)
 {
-    qInfo("media_player::seek");
-    setPosition(seconds * 1000);
+    setPosition(milliseconds);
 }
 
 void media_player::durationChanged(qint64 duration)
 {
-    totalSeconds = duration / 1000;
-    slider->setMaximum(static_cast<int>(totalSeconds));
+    totalMilliseconds = duration;
+    slider->setMaximum(static_cast<int>(totalMilliseconds));
 }
 
 void media_player::positionChanged(qint64 progress)
 {
     if (!slider->isSliderDown()) {
-        slider->setValue(static_cast<int>(progress / 1000));
+        slider->setValue(static_cast<int>(progress));
     }
 }
 
@@ -72,14 +71,14 @@ void media_player::updateElapsedTime(qint64 elapsed)
                 static_cast<int>(elapsed / 1000)
                 );
     QTime totalTime(
-                (totalSeconds / 3600) % 60,
-                (totalSeconds / 60) % 60,
-                totalSeconds % 60,
-                static_cast<int>(totalSeconds)
+                (totalMilliseconds / 1000 / 3600) % 60,
+                (totalMilliseconds / 1000 / 60) % 60,
+                (totalMilliseconds / 1000) % 60,
+                static_cast<int>(totalMilliseconds / 1000)
                 );
 
     QString elapsedStr;
-    elapsedStr = (totalSeconds < 3600)
+    elapsedStr = (totalMilliseconds / 1000 < 3600)
             ? (elapsedTime.toString(QString("mm:ss"))
                + "/"
                + totalTime.toString(QString("mm:ss")))
