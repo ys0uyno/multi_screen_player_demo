@@ -37,6 +37,36 @@ void grid_layout::add(QWidget *widget, QWidget *slider)
     }
 }
 
+void grid_layout::add(QWidget *widget, QWidget *slider, QWidget *label)
+{
+    QVBoxLayout *vlayout = new QVBoxLayout;
+    vlayout->addWidget(widget);
+    QHBoxLayout *hlayout = new QHBoxLayout;
+    hlayout->addWidget(slider);
+    hlayout->addWidget(label);
+    vlayout->addLayout(hlayout);
+    vlayout->setStretchFactor(widget, 9);
+    vlayout->setStretchFactor(hlayout, 1);
+    verticalLayoutVec.push_back(vlayout);
+
+    if (verticalLayoutVec.size() == 1) {
+        qInfo("grid 1");
+        addLayout(verticalLayoutVec.at(0), 0, 0);
+    }
+    else if (verticalLayoutVec.size() == 2) {
+        qInfo("grid 2");
+        addLayout(verticalLayoutVec.at(1), 0, 1);
+    }
+    else if (verticalLayoutVec.size() == 3) {
+        qInfo("grid 3");
+        addLayout(verticalLayoutVec.at(2), 1, 0);
+    }
+    else if (verticalLayoutVec.size() == 4) {
+        qInfo("grid 4");
+        addLayout(verticalLayoutVec.at(3), 1, 1);
+    }
+}
+
 void grid_layout::relayout()
 {
     int widgets_count = count();

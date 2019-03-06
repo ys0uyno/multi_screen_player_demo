@@ -12,7 +12,8 @@ public:
 
 public:
     void add(QWidget *widget);
-    void add(QWidget *wdiget, QWidget *slider);
+    void add(QWidget *widget, QWidget *slider);
+    void add(QWidget *widget, QWidget *slider, QWidget *label);
 
 public slots:
     void relayout();
